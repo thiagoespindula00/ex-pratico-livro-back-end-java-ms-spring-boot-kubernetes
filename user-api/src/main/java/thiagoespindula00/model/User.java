@@ -1,10 +1,18 @@
-package thiagoespindula00.dto;
+package thiagoespindula00.model;
 
-import thiagoespindula00.model.User;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import thiagoespindula00.dto.UserDTO;
 
 import java.util.Date;
 
-public class UserDTO {
+@Entity
+public class User {
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
     private String nome;
     private String cpf;
     private String endereco;
@@ -12,27 +20,24 @@ public class UserDTO {
     private String telefone;
     private Date dataCadastro;
 
-    public UserDTO() {}
+    public static User convert(UserDTO dto) {
+        User user = new User();
+        user.nome = dto.getNome();
+        user.cpf = dto.getCpf();
+        user.endereco = dto.getEndereco();
+        user.email = dto.getEmail();
+        user.telefone = dto.getTelefone();
+        user.dataCadastro = dto.getDataCadastro();
 
-    public UserDTO(String nome, String cpf, String endereco, String email, String telefone, Date dataCadastro) {
-        this.nome = nome;
-        this.cpf = cpf;
-        this.endereco = endereco;
-        this.email = email;
-        this.telefone = telefone;
-        this.dataCadastro = dataCadastro;
+        return user;
     }
 
-    public static UserDTO convert(User user) {
-        UserDTO userDTO = new UserDTO();
-        userDTO.setNome(user.getNome());
-        userDTO.setCpf(user.getCpf());
-        userDTO.setEndereco(user.getEndereco());
-        userDTO.setEmail(user.getEmail());
-        userDTO.setTelefone(user.getTelefone());
-        userDTO.setDataCadastro(user.getDataCadastro());
+    public Long getId() {
+        return id;
+    }
 
-        return userDTO;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getNome() {
