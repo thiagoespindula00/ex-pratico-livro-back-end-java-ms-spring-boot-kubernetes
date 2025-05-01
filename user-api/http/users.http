@@ -1,0 +1,20 @@
+### Teste GET todos os usuários
+GET http://localhost:8080/users
+
+### Teste GET usuário com cpf 123
+GET http://localhost:8080/users/123
+
+### Teste POST cadastro de usuário
+POST http://localhost:8080/users/newUser
+Content-Type: application/json
+
+{
+  "cpf": "987",
+  "nome": "Carlos",
+  "endereco": "Avenida 2",
+  "email": "carlos@email.com",
+  "telefone": "1234-3454"
+}
+
+### Teste DELETE remover usuário por cpf
+DELETE http://localhost:8080/users/987

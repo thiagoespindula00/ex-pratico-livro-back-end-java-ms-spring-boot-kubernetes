@@ -1,8 +1,7 @@
 package thiagoespindula00.controller;
 
 import jakarta.annotation.PostConstruct;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import thiagoespindula00.dto.UserDTO;
 
 import java.util.ArrayList;
@@ -33,5 +32,22 @@ public class UserController {
     @GetMapping("/users")
     public List<UserDTO> getUsers() {
         return usuarios;
+    }
+
+    @GetMapping("/users/{cpf}")
+    public UserDTO getUser(@PathVariable String cpf) {
+        return usuarios.stream().filter(userDTO -> userDTO.getCpf().equalsIgnoreCase(cpf)).findFirst().orElse(null);
+    }
+
+    @PostMapping("/users/newUser")
+    public UserDTO createUser(@RequestBody UserDTO userDTO) {
+        userDTO.setDataCadastro(new Date());
+        usuarios.add(userDTO);
+        return userDTO;
+    }
+
+    @DeleteMapping("/users/{cpf}")
+    public boolean deleteUser(@PathVariable String cpf) {
+        return usuarios.removeIf(userDTO -> userDTO.getCpf().equalsIgnoreCase(cpf));
     }
 }
